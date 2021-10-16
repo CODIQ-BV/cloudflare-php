@@ -226,6 +226,41 @@ class ZoneSettings implements API
         return false;
     }
 
+
+    public function updateHTTPSRewriteSetting($zoneID, $value)
+    {
+        $return = $this->adapter->patch(
+            'zones/' . $zoneID . '/settings/automatic_https_rewrites',
+            [
+                'value' => $value,
+            ]
+        );
+        $body   = json_decode($return->getBody());
+
+        if ($body->success) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function updateAlwaysUseHTTPSSetting($zoneID, $value)
+    {
+        $return = $this->adapter->patch(
+            'zones/' . $zoneID . '/settings/always_use_https',
+            [
+                'value' => $value,
+            ]
+        );
+        $body   = json_decode($return->getBody());
+
+        if ($body->success) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function updateServerSideExcludeSetting($zoneID, $value)
     {
         $return = $this->adapter->patch(
