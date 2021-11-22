@@ -260,6 +260,23 @@ class ZoneSettings implements API
 
         return false;
     }
+    
+    public function updateSSLSetting($zoneID, $value)
+    {
+        $return = $this->adapter->patch(
+            'zones/' . $zoneID . '/settings/ssl',
+            [
+                'value' => $value,
+            ]
+        );
+        $body   = json_decode($return->getBody());
+
+        if ($body->success) {
+            return true;
+        }
+
+        return false;
+    }
 
     public function updateServerSideExcludeSetting($zoneID, $value)
     {
